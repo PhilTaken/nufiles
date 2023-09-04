@@ -19,7 +19,7 @@
 
     };
 
-    outputs = inputs@{ flake-parts, nixpkgs, home-manager, machines, ... }:
+    outputs = inputs@{ flake-parts, nixpkgs, home-manager, ... }:
         flake-parts.lib.mkFlake { inherit inputs; } {
             imports = [
                 # To import a flake module
@@ -41,10 +41,10 @@
                 # agnostic ones like nixosModule and system-enumerating ones, although
                 # those are more easily expressed in perSystem.
                 # nixosConfiguration
-                nixosConfiguration.core = nixpkgs.lib.nixosSystem {
+                packages.x86_64-linux.nixosConfiguration.core = nixpkgs.lib.nixosSystem {
                     system = "x86_64-linux";
                     modules = [
-                        # import ./machines/core/default.nix
+                        ./machines/core
 
                         home-manager.nixosModules.home-manager {
                             home-manager.useGlobalPkgs = true;
