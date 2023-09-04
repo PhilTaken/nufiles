@@ -41,19 +41,13 @@
                 # agnostic ones like nixosModule and system-enumerating ones, although
                 # those are more easily expressed in perSystem.
                 # nixosConfiguration
-                packages.x86_64-linux.nixosConfiguration.core = nixpkgs.lib.nixosSystem {
-                    system = "x86_64-linux";
-                    modules = [
-                        ./machines/core
-
-                        home-manager.nixosModules.home-manager {
-                            home-manager.useGlobalPkgs = true;
-                            home-manager.useUserPackages = true;
-
-                            # home-manager.users.jan = import ./users/jan/default.nix;
-                        }
-                    ];
-                    specialArgs = { inherit inputs; };
+                packages.x86_64-linux.nixosConfiguration = {
+                    core = nixpkgs.lib.nixosSystem {
+                        system = "x86_64-linux";
+                        modules = [
+                        ];
+                        specialArgs = { inherit inputs; };
+                    };
                 };
             };
         };
